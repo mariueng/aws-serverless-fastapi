@@ -44,11 +44,15 @@ def is_valid_time_period(date_time: datetime) -> bool:
 async def get_electricity_prices(zone: str, date_str: str) -> Response:
     """
     Endpoint that fetches data and calculates electricity prices for zone and date.
-    args:
-        zone (str): Bidding zone (e.g. NO1)
-        date (str): Date in format YYYYMMDD
-    returns:
-        Response: JSON with electricity prices for zone and date
+
+    Args:
+
+    - **zone** (str): Bidding zone (e.g. NO1)
+    - **date** (str): Date in format YYYYMMDD
+
+    Returns:
+
+    - **Response**: JSON with electricity prices for zone and date
     """
 
     # Construct URL

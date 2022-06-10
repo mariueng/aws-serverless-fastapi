@@ -13,14 +13,18 @@ router = APIRouter()
 def get_exchange_rates(from_currency: str, to_currency: str, date: str) -> Response:
     """
     Returns the exchange rate for a given currency and date.
-    args:
-        from_currency (str): Currency to convert from (e.g. NOK)
-        to_currency (str): Currency to convert to (e.g. USD)
-        date (datetime): Date to convert (e.g. 2020-01-01)
-    returns:
-        Response: JSON with exchange rate for currency and date
+
+    Args:
+
+    - **from_currency** (str): Currency to convert from (e.g. NOK)
+    - **to_currency** (str): Currency to convert to (e.g. USD)
+    - **date** (datetime): Date in format YYYYMMDD
+
+    Returns:
+
+    - **Response**: JSON with exchange rate for currency and date
     """
-    end_date = datetime.strptime(date, '%Y-%m-%d')
+    end_date = datetime.strptime(date, '%Y%m%d')
 
     if from_currency == to_currency:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Currency cannot be the same.")
