@@ -15,7 +15,7 @@ async def fastapi_serverless():
     """
     Fastapi serverless API for various data sources. Contact owner for 🔑.
     """
-    return Response(content="Contact owner for 🔑 ಠ_ಠ", status_code=200)
+    return "Contact owner for 🔑 ಠ_ಠ"
 
 
 app.include_router(api_router, prefix="/api/v1")  # Need this
