@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from app.api.api_v1.endpoints import crypto_xr, currency_xr
+from app.api.v1.endpoints import crypto_xr, currency_xr
 from app.core.security import api_key_auth
 
 from .endpoints import elprice, currency_xr, crypto_xr

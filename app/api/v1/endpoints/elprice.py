@@ -41,7 +41,7 @@ def is_valid_time_period(date_time: datetime) -> bool:
 
 
 @router.get("/electricity")
-async def get_electricity_prices(zone: str, date_str: str) -> Response:
+async def get_electricity_prices(zone: str, date: str) -> Response:
     """
     Endpoint that fetches data and calculates electricity prices for zone and date.
 
@@ -55,9 +55,10 @@ async def get_electricity_prices(zone: str, date_str: str) -> Response:
     - **Response**: JSON with electricity prices for zone and date
     """
 
+    # TODO: Remove currency from this function and create new function which uses this one and currency.
     # Construct URL
     # TODO: Check that all inputs are sanitized (think they are...)
-    _datetime: datetime = datetime.strptime(date_str, '%Y%m%d')
+    _datetime: datetime = datetime.strptime(date, '%Y%m%d')
     _datetime: datetime = LOCAL_TZ.localize(_datetime)
 
     if not is_valid_time_period(_datetime):
@@ -92,7 +93,7 @@ async def get_electricity_prices(zone: str, date_str: str) -> Response:
         period = time_series['Period']
 
     # Get Exchange rate
-    response = get_exchange_rates("EUR", "NOK", _datetime.strftime("%Y-%m-%d"))
+    response = get_exchange_rates("EUR", "NOK", _datetime.strftime("%Y%m%d"))
     
     if response.status_code != 200:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Could not obtain exchange rate")
