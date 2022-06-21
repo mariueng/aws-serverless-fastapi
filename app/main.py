@@ -1,11 +1,7 @@
-from fastapi import FastAPI, Response
-from dotenv import load_dotenv
+from fastapi import FastAPI
 
-from app.api.api_v1.api import router as api_router
+from app.api.v1.api import router as api_router
 from mangum import Mangum
-
-
-load_dotenv()
 
 app = FastAPI(title="Price API 🚀", description="API for fetching electricity prices, currencies, etc.")
 
@@ -19,4 +15,4 @@ async def fastapi_serverless():
 
 
 app.include_router(api_router, prefix="/api/v1")  # Need this
-handler = Mangum(app)
+handler = Mangum(app, lifespan="off")
