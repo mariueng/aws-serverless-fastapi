@@ -65,10 +65,10 @@ async def get_electricity_prices(zone: str, date: str) -> Response:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Price data is available for tomorrow after 14:00")
 
     if _datetime < dawn_zero:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Price data before 2014-112-12 is unavailable")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Price data before 2014-12-12 is unavailable")
 
     if zone not in ZONES:
-        zones_str: str = ",".join(ZONES.keys())
+        zones_str: str = ", ".join(ZONES.keys())
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=f"Invalid zone. Valid zones are: {zones_str}.")
 
     start_date: str = str((_datetime - timedelta(days=1)).strftime('%Y%m%d'))
