@@ -31,7 +31,7 @@ def test_get_electricity_prices_endpoint(authenticated_client):
     assert type(body[timestamps[0]]["price_per_kwh"]) == float
 
 
-def test_get_too_early_date(authenticated_clietnt):
+def test_get_too_early_date(authenticated_client):
     """ Test that we can't get data before 2014 """
     pass
 
