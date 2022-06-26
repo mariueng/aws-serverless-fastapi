@@ -2,12 +2,14 @@ import os
 import requests
 import xmltodict
 import json
+import logging
 
 from fastapi import status, Response, APIRouter, HTTPException
 from datetime import datetime, timedelta
 from pytz import timezone
 
 from .currency_xr import get_exchange_rates
+
 
 router = APIRouter()
 

@@ -48,6 +48,7 @@ def get_exchange_rates(from_currency: str, to_currency: str, date: str) -> Respo
     series = dict_xml['message:GenericData']['message:DataSet']['generic:Series']
     values = series['generic:Attributes']['generic:Value']
 
+    # Calculate exchange rates
     multiplicator: int
     for attr in values:
         if attr['@id'] == 'UNIT_MULT':

@@ -27,6 +27,7 @@ python-multipart = "*"
 
 [dev-packages]
 pytest = "*"
+pytest-sugar = "*"
 
 [requires]
 python_version = "3.9"
