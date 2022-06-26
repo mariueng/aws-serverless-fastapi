@@ -1,19 +1,5 @@
 from datetime import datetime, timedelta
-from app.main import app
-from fastapi.testclient import TestClient
 
-client = TestClient(app)
-
-"""
-Tests:
-- Test invalid dates
-- Test invalid zones
-- Computations
-"""
-
-# Create valid url endpoint
-# date = datetime.today().strftime("%Y%m%d")
-# endpoint = f"/api/v1/prices/electricity/?zone=NO1&date={date}"
 
 def test_get_electricity_prices_endpoint(authenticated_client):
     """ Test that we can retrieve data in valid format"""
@@ -58,10 +44,12 @@ def test_get_too_late_date(authenticated_client):
     if time_now < "1400":
         tomorrow = (datetime.today() + timedelta(days=1)).strftime("%Y%m%d")
         endpoint = f"/api/v1/prices/electricity/?zone=NO1&date={tomorrow}"
+        print(endpoint)
         response = authenticated_client.get(endpoint)
 
-        assert response.status_code == 200
+        assert response.status_code == 400
         assert response.json()["detail"] == "Price data is available for tomorrow after 14:00"
+
 
 def test_zones(authenticated_client):
     """ Test valid and invalid bidding zones """
