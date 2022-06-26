@@ -8,7 +8,7 @@ router = APIRouter()
 BASE_URL = "https://api.coingecko.com/api/v3"
 
 @router.get("/crypto")
-async def get_crypto_prices(coin: str, currency: Union[str, None]) -> Response:
+async def get_crypto_prices(coin: str, currency: Union[str, None] = None) -> Response:
     """
     Get real-time crypto prices from CoinGecko
 
