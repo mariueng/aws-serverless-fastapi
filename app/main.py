@@ -1,7 +1,6 @@
 import uvicorn
 import logging
 import sys
-import os
 
 from fastapi import FastAPI
 from mangum import Mangum
