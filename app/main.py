@@ -1,6 +1,7 @@
 import uvicorn
 import logging
 import sys
+import os
 
 from fastapi import FastAPI
 from mangum import Mangum
@@ -8,11 +9,15 @@ from mangum import Mangum
 from app.core.config import DEBUG, API_PREFIX, API_VERSION
 from app.api.v1.api import router as api_router
 
+STAGE = os.environ.get('STAGE', None)
+openapi_prefix = f"/{STAGE}" if STAGE else "/"
+
 # Start application
 app = FastAPI(
     title="Price API 🚀",
     description="API for fetching electricity prices, currencies, etc.",
-    debug=DEBUG
+    debug=DEBUG,
+    openapi_prefix=openapi_prefix,
 )
 app.include_router(api_router, prefix=f"/{API_PREFIX}/{API_VERSION}")
 
