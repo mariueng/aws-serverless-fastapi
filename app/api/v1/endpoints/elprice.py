@@ -1,12 +1,12 @@
-import os
 import requests
 import xmltodict
 import json
-import logging
 
 from fastapi import status, Response, APIRouter, HTTPException
 from datetime import datetime, timedelta
 from pytz import timezone
+
+from app.core.config import ENTSOE_API_KEY
 
 from .currency_xr import get_exchange_rates
 
@@ -75,7 +75,7 @@ async def get_electricity_prices(zone: str, date: str) -> Response:
 
     start_date: str = str((_datetime - timedelta(days=1)).strftime('%Y%m%d'))
     end_date: str = str(_datetime.strftime('%Y%m%d'))
-    _entsoe_url: str = entsoe_url % (ZONES[zone], ZONES[zone], start_date, end_date, os.getenv("ENTSOE_SECRET_KEY"))
+    _entsoe_url: str = entsoe_url % (ZONES[zone], ZONES[zone], start_date, end_date, ENTSOE_API_KEY)
 
     # Retrieve and parse data from Entsoe API
     response: Response = requests.get(_entsoe_url)
