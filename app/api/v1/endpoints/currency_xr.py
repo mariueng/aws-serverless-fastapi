@@ -27,9 +27,7 @@ def get_exchange_rates(from_currency: str, to_currency: str, date: str) -> Respo
     end_date = datetime.strptime(date, '%Y%m%d')
 
     if from_currency == to_currency:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Currency cannot be the same.")
-    if end_date.date() > datetime.now().date():
-        end_date = datetime.now()
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Currency can not be the same")
     # TODO: Check for available currencies (?)
 
     # Construct URL
@@ -56,9 +54,6 @@ def get_exchange_rates(from_currency: str, to_currency: str, date: str) -> Respo
 
     observations = series['generic:Obs']
 
-    try:
-        res = float(observations[len(observations) - 1]['generic:ObsValue']['@value']) / math.pow(10, multiplicator)
-    except RuntimeError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Could not calculate exchange rate")
+    res = float(observations[len(observations) - 1]['generic:ObsValue']['@value']) / math.pow(10, multiplicator)
 
     return Response(content=str(res), status_code=status.HTTP_200_OK)

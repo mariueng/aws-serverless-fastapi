@@ -96,10 +96,6 @@ async def get_electricity_prices(zone: str, date: str) -> Response:
 
     # Get Exchange rate
     response = get_exchange_rates("EUR", "NOK", _datetime.strftime("%Y%m%d"))
-    
-    if response.status_code != 200:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Could not obtain exchange rate")
-
     exchange_rate = float(response.body)
 
     # Calculate priceForecast

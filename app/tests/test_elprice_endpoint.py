@@ -68,6 +68,14 @@ def test_zones(authenticated_client):
     assert response.json()["detail"] == "Invalid zone. Valid zones are: NO1, NO2, NO3, NO4, NO5."
 
 
+def test_handling_invalid_response_from_entsoe(authenticated_client):
+    """ Test that we handle invalid responses from Entsoe """
+    endpoint = "/api/v1/prices/electricity/?zone=NO1&date=20231010"
+    response = authenticated_client.get(endpoint)
+
+    assert response.status_code == 400
+
+
 def test_elprice_calculation(authenticated_client):
     """ Test that the price * currency computation is correct """
     # TODO: Figure out how to test this AND adjust when moving calculation to new endpoint

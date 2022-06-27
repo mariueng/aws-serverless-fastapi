@@ -51,6 +51,9 @@ async def get_crypto_prices(coin: str, currency: Union[str, None] = None) -> Res
     # Hacky way to remove wormhole coins from list. TODO: Variable based.
     coin_ids = [coin_id for coin_id in coin_ids if "wormhole" not in coin_id]
 
+    if len(coin_ids) == 0:
+        raise HTTPException(status_code=400, detail="Coin not supported")
+
     # Get prices for coin(s)
     _url = BASE_URL + "/simple/price?ids=%s&vs_currencies=%s" % (",".join(coin_ids), vs_currencies)
     response = requests.get(_url)

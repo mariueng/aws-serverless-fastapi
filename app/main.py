@@ -1,5 +1,6 @@
 import uvicorn
 import logging
+import sys
 
 from fastapi import FastAPI
 from mangum import Mangum
@@ -19,12 +20,15 @@ app.include_router(api_router, prefix=f"/{API_PREFIX}/{API_VERSION}")
 def configure_logger():
     # Customize logging
     logger = logging.getLogger("uvicorn.access")
+    print(logger.handlers)
     console_formatter = uvicorn.logging.AccessFormatter(
         fmt="%(levelprefix)s %(asctime)s | %(request_line)s [%(status_code)s]",
         datefmt="%Y-%m-%d %H:%M:%S",
         style="%",
         use_colors=True
     )
+    if len(logger.handlers) == 0:
+        logger.addHandler(logging.StreamHandler(stream=sys.stdout))
     logger.handlers[0].setFormatter(console_formatter)
 
 
