@@ -20,7 +20,6 @@ app.include_router(api_router, prefix=f"/{API_PREFIX}/{API_VERSION}")
 def configure_logger():
     # Customize logging
     logger = logging.getLogger("uvicorn.access")
-    print(logger.handlers)
     console_formatter = uvicorn.logging.AccessFormatter(
         fmt="%(levelprefix)s %(asctime)s | %(request_line)s [%(status_code)s]",
         datefmt="%Y-%m-%d %H:%M:%S",

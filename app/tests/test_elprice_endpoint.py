@@ -44,7 +44,6 @@ def test_get_too_late_date(authenticated_client):
     if time_now < "1400":
         tomorrow = (datetime.today() + timedelta(days=1)).strftime("%Y%m%d")
         endpoint = f"/api/v1/prices/electricity/?zone=NO1&date={tomorrow}"
-        print(endpoint)
         response = authenticated_client.get(endpoint)
 
         assert response.status_code == 400
