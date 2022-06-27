@@ -6,18 +6,20 @@ import os
 from fastapi import FastAPI
 from mangum import Mangum
 
-from app.core.config import DEBUG, API_PREFIX, API_VERSION
+from app.core.config import (
+    PROJECT_NAME,
+    API_PREFIX,
+    API_VERSION,
+    DEBUG,
+)
 from app.api.v1.api import router as api_router
 
-STAGE = os.environ.get('STAGE', None)
-openapi_prefix = f"/{STAGE}" if STAGE else "/"
 
 # Start application
 app = FastAPI(
-    title="Price API 🚀",
+    title=PROJECT_NAME,
     description="API for fetching electricity prices, currencies, etc.",
     debug=DEBUG,
-    openapi_prefix=openapi_prefix,
 )
 app.include_router(api_router, prefix=f"/{API_PREFIX}/{API_VERSION}")
 
